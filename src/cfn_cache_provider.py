@@ -9,7 +9,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 log = logging.getLogger()
-log.setLevel(os.environ.get("LOG_LEVEL", "INFO"))
+log.setLevel(os.environ.get("LOG_LEVEL", "DEBUG"))
 
 
 schema = {

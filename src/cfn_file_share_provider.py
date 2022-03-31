@@ -9,7 +9,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 log = logging.getLogger()
-log.setLevel(os.environ.get("LOG_LEVEL", "INFO"))
+log.setLevel(os.environ.get("LOG_LEVEL", "DEBUG"))
 
 
 schema = {
@@ -89,18 +89,6 @@ schema = {
             "type": "boolean",
             "description": "A value that sets who pays the cost of the request and the cost associated with data download from the S3 bucket.",
             "default": False 
-        },
-        "Tags": { "type": "array",
-            "description": "A list of up to 50 tags that can be assigned to the gateway.",
-            "items": {
-                "type": "object",
-                "required": ["Key", "Value"],
-                "properties": {
-                    "Key": {
-                        "type": "string"
-                    }
-                }
-            }
         }
     }
 }
@@ -135,8 +123,7 @@ class StorageGatewayNfsFileShareProvider(ResourceProvider):
                 Squash=self.get("Squash"),
                 ReadOnly=self.get("ReadOnly"),
                 GuessMIMETypeEnabled=self.get("GuessMIMETypeEnabled"),
-                RequesterPays=self.get("RequesterPays"),
-                Tags=self.get("Tags")
+                RequesterPays=self.get("RequesterPays")
             )
 
             log.debug("%s", response)

@@ -5,7 +5,7 @@ import cfn_cache_provider
 import cfn_file_share_provider
 
 log = logging.getLogger()
-log.setLevel(os.environ.get("LOG_LEVEL", "INFO"))
+log.setLevel(os.environ.get("LOG_LEVEL", "DEBUG"))
 
 
 def handler(request, context):
