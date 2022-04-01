@@ -53,6 +53,14 @@ schema = {
             "type": "string",
             "description": "The ARN of the backed storage used for storing file data." 
         },
+        "VPCEndpointDNSName": { 
+            "type": "string",
+            "description": "The DNS Name of the S3 VPC Endpoint" 
+        },
+        "BucketRegion": { 
+            "type": "string",
+            "description": "The region where the bucket is located" 
+        },
         "DefaultStorageClass": { 
             "type": "string",
             "description": "The default storage class for objects put into an Amazon S3 bucket by the file gateway.",
@@ -123,7 +131,9 @@ class StorageGatewayNfsFileShareProvider(ResourceProvider):
                 Squash=self.get("Squash"),
                 ReadOnly=self.get("ReadOnly"),
                 GuessMIMETypeEnabled=self.get("GuessMIMETypeEnabled"),
-                RequesterPays=self.get("RequesterPays")
+                RequesterPays=self.get("RequesterPays"),
+                BucketRegion=self.get("BucketRegion"),
+                VPCEndpointDNSName=self.get("VPCEndpointDNSName")
             )
 
             log.debug("%s", response)
