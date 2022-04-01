@@ -11,18 +11,6 @@ Parameters:
   ClientIP:
      Type: String
      Description: Client´s IP Address (w.x.y.z/32)
-  VPCEndpointName:
-     Type: String
-     Description: S3 VPC Endpoint  DNS name
-  RegionName:
-     Type: String
-     Description: Region name
-  GatewayARN:
-     Type: String
-     Description:  Storage Gateway ARN
-  S3BucketARN:
-     Type: String
-     Description:  S3 Bucket ARN
 Resources:
   StorageGatewayFileShareRole:  
     Type: AWS::IAM::Role
@@ -46,7 +34,7 @@ Resources:
                   - s3:ListBucket
                   - s3:ListBucketVersions
                   - s3:ListBucketMultipartUploads
-                Resource: !Ref S3BucketARN
+                Resource: arn:aws:s3:::s3bucket03721695533642
                 Effect: Allow
               - Action:
                   - s3:AbortMultipartUpload
@@ -58,18 +46,18 @@ Resources:
                   - s3:ListMultipartUploadParts
                   - s3:PutObject
                   - s3:PutObjectAcl
-                Resource: !Join  [ "", [!Ref S3BucketARN,"*"] ]
+                Resource: arn:aws:s3:::s3bucket03721695533642*
                 Effect: Allow
   StorageGatewayNfsFileShare:
     Type: Custom::StorageGatewayNfsFileShare
     Properties:
       FileShareName: !Ref  FileShareName
-      GatewayARN: !Ref GatewayARN
+      GatewayARN: arn:aws:storagegateway:us-east-1:721695533642:gateway/sgw-05BC526C
       Role: !GetAtt StorageGatewayFileShareRole.Arn
-      LocationARN: !Join  [ "", [!Ref S3BucketARN,"/",!Ref FolderName,"/"] ]
+      LocationARN: !Join  [ "", ["arn:aws:s3:::s3bucket03721695533642","/",!Ref FolderName,"/"] ]
       DefaultStorageClass: S3_STANDARD
-      VPCEndpointDNSName: !Ref VPCEndpointName
-      BucketRegion: !Ref RegionName
+      VPCEndpointDNSName: vpce-0bee7ce3ebab84fc4-fq2qxvrt.s3.us-east-1.vpce.amazonaws.com
+      BucketRegion: us-east-1
       Squash: NoSquash
       ClientList:
         - !Ref ClientIP
