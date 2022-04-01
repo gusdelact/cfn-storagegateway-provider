@@ -42,4 +42,4 @@ Resources:
          Key: !Ref LambdaZipFile
       Handler: provider.handler
       Runtime: python3.9
-      Role: !Ref LambdaStorageGatewayProviderRole.Arn
+      Role: !GetAtt  LambdaStorageGatewayProviderRole.Arn
