@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Cloudformation Extension Lambda function that provision Storagegateway, FileShare
+Parameters:
+  LambdaName:
+    Description: "Name of the lambda function"
+    Type: String  
+  DeployBucket:
+    Description: "S3 Bucket for Lambda Deployment"
+    Type: String  
+  LambdaZipFile:
+    Description: "ZIP File with Lambda Python Code"
+    Type: String  
+Resources:
+
+  LambdaStorageGatewayProviderRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Path: "/service-role/"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "lambda.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AWSStorageGatewayFullAccess"
+        - "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+        - "arn:aws:iam::aws:policy/IAMFullAccess"
+
+  LambdaStorageGatewayProvider:
+    Type: AWS::Serverless::Function 
+    Properties:
+      FunctionName: !Ref LambdaName
+      CodeUri: 
+         Bucket: !Ref DeployBucket
+         Key: !Ref LambdaZipFile
+      Handler: provider.handler
+      Runtime: python3.9
+      Role: !Ref LambdaStorageGatewayProviderRole.Arn
