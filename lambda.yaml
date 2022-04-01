@@ -41,14 +41,15 @@ Resources:
                    -  "logs:CreateLogStream"
                    -  "logs:PutLogEvents"
                 Resource: !Join [ "",  [!Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/",!Ref LambdaName,":*" ] ]
-              # - Effect: Allow
-              #   Action:   "logs:PutLogEvents"
-              #   Resource: !Join [ "",  [!Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/",!Ref LambdaName,":*" ] ]
+              - Effect: Allow
+                Action:   
+                    -  "storagegateway:CreateNFSFileShare"
+                    -  "storagegateway:UpdateNFSFileShare"
+                    -  "storagegateway:DeleteFileShare"
+                Resource: "*"
               - Effect: Allow
                 Action:  "iam:PassRole"
                 Resource: "*"     
-      ManagedPolicyArns:
-        - "arn:aws:iam::aws:policy/AWSStorageGatewayFullAccess"
 
   LambdaStorageGatewayProvider:
     Type: AWS::Serverless::Function 
