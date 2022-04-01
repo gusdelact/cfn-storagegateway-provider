@@ -41,13 +41,14 @@ Resources:
   StorageGatewayNfsFileShare:
     Type: Custom::StorageGatewayNfsFileShare
     Properties:
+      FileShareName: backup_10_100_137_76
       GatewayARN: arn:aws:storagegateway:us-east-1:721695533642:gateway/sgw-05BC526C
       Role: !GetAtt StorageGatewayFileShareRole.Arn
-      LocationARN: arn:aws:s3:::s3bucket03721695533642/ABCD
+      LocationARN: arn:aws:s3:::s3bucket03721695533642/10_100_137_76/
       DefaultStorageClass: S3_STANDARD
       VPCEndpointDNSName: vpce-0bee7ce3ebab84fc4-fq2qxvrt.s3.us-east-1.vpce.amazonaws.com
       BucketRegion: us-east-1
       Squash: NoSquash
       ClientList:
-        - 0.0.0.0/0
+        - 10.100.137.76/32
       ServiceToken: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:cfn-storagegateway-provider'

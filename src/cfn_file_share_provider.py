@@ -41,6 +41,10 @@ schema = {
             },
             "default": {}
         },
+        "FileShareName": { 
+            "type": "string",
+            "description": "Fileshare Name" 
+        },
         "GatewayARN": {
             "type": "string",
             "description": "The Amazon Resource Name (ARN) of the file gateway on which you want to create a file share." 
@@ -121,6 +125,7 @@ class StorageGatewayNfsFileShareProvider(ResourceProvider):
 
             response = self.storagegw.create_nfs_file_share(
                 ClientToken=self.random_string(),
+                FileShareName=self.get("FileShareName"),
                 NFSFileShareDefaults=self.get("NFSFileShareDefaults"),
                 GatewayARN=self.get("GatewayARN"),
                 Role=self.get("Role"),
