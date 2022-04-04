@@ -12,19 +12,34 @@ Resources:
    BackupFileShareProduct:
        Type: AWS::ServiceCatalog::CloudFormationProduct
        Properties:
-         Name: "BackupFileShare"
+         Name: "Backup FileShare para Base de datos"
          Owner: "emcali"
          ProvisioningArtifactParameters:
              - Name: v1.0
                Info: 
-                  LoadTemplateFromURL:  "https://cfn-storagegateway-provider-deploy-721695533642.s3.amazonaws.com/templates/fileshare3.yaml"
+                  LoadTemplateFromURL:  "https://cfn-storagegateway-provider-deploy-721695533642.s3.amazonaws.com/templates/fileshare_with_parameters.yaml"
 
+   BackupFileShareProductPrefilled:
+       Type: AWS::ServiceCatalog::CloudFormationProduct
+       Properties:
+         Name: "Backup FileShare para Base de datos prellenado"
+         Owner: "emcali"
+         ProvisioningArtifactParameters:
+             - Name: v1.0
+               Info: 
+                  LoadTemplateFromURL:  "https://cfn-storagegateway-provider-deploy-721695533642.s3.amazonaws.com/templates/fileshare_prefilled.yaml"
+                  
    BackupFileSharePortfolioAssociation:
        Type: AWS::ServiceCatalog::PortfolioProductAssociation
        Properties:
          PortfolioId: !Ref BackupPortfolio
          ProductId: !Ref BackupFileShareProduct
     
+   BackupFileSharePrefilledPortfolioAssociation:
+       Type: AWS::ServiceCatalog::PortfolioProductAssociation
+       Properties:
+         PortfolioId: !Ref BackupPortfolio
+         ProductId: !Ref BackupFileShareProductPrefilled
 Outputs:
    BackupPortfolioProductId: 
      Description: "Identificador del Portafolio de Backup"
