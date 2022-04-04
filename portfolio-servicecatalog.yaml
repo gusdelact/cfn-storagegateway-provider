@@ -61,8 +61,27 @@ Resources:
             - arn:aws:iam::aws:policy/AWSStorageGatewayFullAccess
             - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
             - arn:aws:iam::aws:policy/AWSLambda_FullAccess
-             
 
+   BackupFileSharePortfolioLaunchConstraint:
+       Type: "AWS::ServiceCatalog::LaunchRoleConstraint"
+       Properties:
+         PortfolioId: !Ref BackupPortfolio
+         ProductId: !Ref BackupFileShareProduct
+         RoleArn: !GetAtt Rol4BackupFileSharePortfolioLaunchConstraint.Arn
+       DependsOn:
+          - Rol4BackupFileSharePortfolioLaunchConstraint
+          - BackupFileSharePortfolioAssociation    
+
+   BackupFileSharePrefilledPortfolioLaunchConstraint:
+       Type: "AWS::ServiceCatalog::LaunchRoleConstraint"
+       Properties:
+         PortfolioId: !Ref BackupPortfolio
+         ProductId: !Ref BackupFileShareProductPrefilled
+         RoleArn: !GetAtt Rol4BackupFileSharePortfolioLaunchConstraint.Arn
+       DependsOn:
+          - Rol4BackupFileSharePortfolioLaunchConstraint
+          - BackupFileSharePortfolioAssociation      
+                        
 Outputs:
    BackupPortfolioProductId: 
      Description: "Identificador del Portafolio de Backup"
