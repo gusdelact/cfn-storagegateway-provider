@@ -9,4 +9,6 @@ Resources:
          ProviderName: emcali
          Description: "Portafolio de productos para Backup usando Storage Gateway"
 Outputs:
-   BackupPortfolioProductId: !Ref BackupPortfolio
+   BackupPortfolioProductId: 
+     Description: "Identificador del Portafolio de Backup"
+     Value: !Ref BackupPortfolio
