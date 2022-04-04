@@ -8,5 +8,24 @@ Resources:
          DisplayName: emcalibackup
          ProviderName: emcali
          Description: "Portafolio de productos para Backup usando Storage Gateway"
+
+   BackupFileShareProduct:
+       Type: AWS::ServiceCatalog::CloudFormationProduct
+       Properties:
+         Name: "BackupFileShare"
+         Owner: "emcali"
+         ProvisioningArtifactParameters:
+             - Name: v1.0
+               Info: 
+                  LoadTemplateFromURL:  "https://cfn-storagegateway-provider-deploy-721695533642.s3.amazonaws.com/templates/fileshare3.yaml"
+
+   BackupFileSharePortfolioAssociation:
+       Type: AWS::ServiceCatalog::PortfolioProductAssociation
+       Properties:
+         PortfolioId: !Ref BackupPortfolio
+         ProductId: !Ref BackupFileShareProduct
+    
 Outputs:
-   BackupPortfolioProductId: !Ref BackupPortfolio
+   BackupPortfolioProductId: 
+     Description: "Identificador del Portafolio de Backup"
+     Value: !Ref BackupPortfolio
