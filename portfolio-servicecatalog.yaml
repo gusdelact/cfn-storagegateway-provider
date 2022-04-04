@@ -40,15 +40,25 @@ Resources:
        Properties:
          PortfolioId: !Ref BackupPortfolio
          ProductId: !Ref BackupFileShareProductPrefilled
+
    Rol4BackupFileSharePortfolioLaunchConstraint:
-       Type: AWS:IAM::Role
+       Type: AWS::IAM::Role
        Properties:
          Path: "/service-role/"
+         AssumeRolePolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+               Effect: "Allow"
+               Principal:
+                 Service:
+                    - "servicecatalog.amazonaws.com"
+               Action:
+                    - "sts:AssumeRole"
          ManagedPolicyArns:
             - arn:aws:iam::aws:policy/IAMFullAccess
             - arn:aws:iam::aws:policy/AmazonS3FullAccess
             - arn:aws:iam::aws:policy/AWSStorageGatewayFullAccess
-            - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
             - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
             - arn:aws:iam::aws:policy/AWSLambda_FullAccess
              
