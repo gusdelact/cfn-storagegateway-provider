@@ -1,0 +1,10 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Storage Gateway
+Resources:
+   BackupPortfolio:
+       Type: AWS::ServiceCatalog::Portfolio
+       Properties:
+         DisplayName: emcalibackup
+         ProviderName: emcali
+         Description: "Portafolio de productos para Backup usando Storage Gateway"
