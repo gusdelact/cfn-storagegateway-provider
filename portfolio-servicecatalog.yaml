@@ -8,3 +8,5 @@ Resources:
          DisplayName: emcalibackup
          ProviderName: emcali
          Description: "Portafolio de productos para Backup usando Storage Gateway"
+Outputs:
+   BackupPortfolioProductId: !Ref BackupPortfolio
